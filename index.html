@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MAPAS CONCEPTUALES DE NIA</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mu:#667085;--bd:#dfe3ee;--ac:#4f46e5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1c2030;--tx:#eef0f7;--mu:#9aa3b8;--bd:#2d3350;--ac:#8b85ff;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;padding:16px}
+h1{font-size:1.3rem;margin:0 0 4px}
+.sub{color:var(--mu);font-size:.85rem;margin:0 0 12px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px}
+.tab{flex:none;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:999px;padding:6px 12px;font-size:.8rem;cursor:pointer}
+.tab.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tab.done::after{content:" ✓"}
+.bar{height:6px;background:var(--bd);border-radius:9px;margin:8px 0 14px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;max-width:760px;margin:auto}
+.map{position:relative;height:480px;margin:4px 0}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.map line{stroke:var(--bd);stroke-width:.5;stroke-dasharray:1.5 1;animation:d 1.5s linear infinite}
+@keyframes d{to{stroke-dashoffset:-5}}
+.n{position:absolute;transform:translate(-50%,-50%);width:29%;min-width:84px;text-align:center;border:2px solid var(--c);background:var(--card);color:var(--tx);border-radius:14px;padding:8px 4px;font-size:.74rem;font-weight:600;cursor:pointer;transition:transform .2s,background .2s;animation:pop .5s backwards}
+.n:hover{transform:translate(-50%,-50%) scale(1.07)}
+.n.on{background:var(--c);color:#fff}
+.n span{display:block;font-size:1.2rem}
+@keyframes pop{from{opacity:0;transform:translate(-50%,-50%) scale(.3)}}
+.c{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:30%;min-width:96px;aspect-ratio:1;border-radius:50%;background:var(--ac);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px;box-shadow:0 0 0 8px color-mix(in srgb,var(--ac) 20%,transparent);animation:pulse 2.5s infinite}
+.c b{font-size:1.1rem}.c small{font-size:.62rem;line-height:1.2;margin-top:2px}
+@keyframes pulse{50%{box-shadow:0 0 0 16px color-mix(in srgb,var(--ac) 8%,transparent)}}
+.det{border-left:4px solid var(--ac);background:var(--bg);border-radius:10px;padding:10px 12px;font-size:.88rem;line-height:1.45;min-height:70px;animation:f .3s}
+@keyframes f{from{opacity:0;transform:translateY(6px)}}
+.det h3{margin:0 0 4px;font-size:.95rem}
+.row{display:flex;justify-content:space-between;gap:8px;margin-top:10px}
+button.b{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;padding:8px 12px;cursor:pointer;font-size:.82rem}
+button.p{background:var(--ac);color:#fff;border-color:var(--ac)}
+.cov{min-height:90vh;display:flex;align-items:center;justify-content:center;animation:f .6s}
+.cov .in{text-align:center;max-width:560px;width:100%;background:var(--card);border:1px solid var(--bd);border-top:8px solid var(--ac);border-radius:18px;padding:36px 22px}
+.cov .ic{font-size:3rem}
+.cov h2{font-size:1.5rem;letter-spacing:.04em;margin:10px 0 6px;color:var(--ac)}
+.cov .ln{width:70px;height:4px;background:var(--ac);border-radius:9px;margin:14px auto}
+.cov p{margin:6px 0;color:var(--mu);font-size:.95rem}
+.cov .nm{color:var(--tx);font-size:1.25rem;font-weight:700;margin-top:18px}
+.cov .lb{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="cov" id="cov"><div class="in"><div class="ic">🗺️</div><h2>MAPAS CONCEPTUALES DE NIA</h2><div class="ln"></div><p>Normas Internacionales de Auditoría</p><p>NIA 260 · 265 · 402 · 450 · 600 · 610 · 620 · 700 · 705 · 701 · 706 · 710 · 720</p><p class="lb">Presentado por</p><p class="nm">Erick Ardani Lara Rivera</p><br><button class="b p" id="go0">Comenzar →</button></div></div>
+<div id="main" style="display:none">
+<h1>🗺️ MAPAS CONCEPTUALES DE NIA</h1>
+<div class="tabs" id="tabs"></div>
+<div class="bar"><i id="pr"></i></div>
+<div class="card">
+  <div class="map" id="map"></div>
+  <div class="det" id="det"></div>
+  <div class="row"><button class="b" id="prev">← Anterior</button><button class="b p" id="ok">Marcar repasada ✓</button><button class="b" id="next">Siguiente →</button></div>
+</div>
+</div>
+<script>
+var COL=["#ef4444","#f59e0b","#10b981","#3b82f6","#a855f7"];
+var D=[
+{n:"260",t:"Comunicación con los responsables del gobierno",o:"Comunicación bidireccional oportuna",b:[
+["🎯","Objetivo","Comunicar responsabilidades del auditor, alcance y momento de la auditoría, y hallazgos significativos."],
+["👥","Destinatarios","Responsables del gobierno de la entidad (consejo, comité de auditoría). Se identifica con quién comunicar."],
+["📋","Qué comunicar","Responsabilidades del auditor, alcance y momento, hallazgos significativos, dificultades, incorrecciones no corregidas y aspectos de independencia."],
+["🛡️","Independencia","En entidades cotizadas: declarar el cumplimiento de requerimientos de ética e independencia y las relaciones relevantes."],
+["📝","Forma y documentación","Oral o escrita según el asunto. Si es oral, se documenta; evaluar la eficacia de la comunicación."]]},
+{n:"265",t:"Comunicación de deficiencias en el control interno",o:"Deficiencias significativas por escrito",b:[
+["🔍","Identificar","Determinar si se han identificado una o más deficiencias de control interno y si, individual o conjuntamente, son significativas."],
+["⚠️","Deficiencia significativa","Deficiencia o conjunto de ellas que, a juicio profesional del auditor, merece atención de los responsables del gobierno."],
+["✉️","Gobierno","Comunicar por escrito y oportunamente las deficiencias significativas a los responsables del gobierno."],
+["🧑‍💼","Dirección","Comunicar a la dirección las demás deficiencias de importancia suficiente, oral o por escrito."],
+["📄","Contenido","Describir las deficiencias y explicar sus posibles efectos. Aclarar que la auditoría no tenía como fin identificar todas."]]},
+{n:"402",t:"Entidad que utiliza una organización de servicios",o:"Auditor usuario y entidad usuaria",b:[
+["🏢","Conceptos","Entidad usuaria contrata servicios; el auditor usuario audita sus estados financieros; la organización de servicios procesa transacciones."],
+["🧠","Comprender","Entender los servicios, su relevancia para la auditoría y los controles de la entidad usuaria relacionados."],
+["📘","Informe Tipo 1","Descripción del sistema y diseño de controles, a una fecha determinada."],
+["📗","Informe Tipo 2","Incluye también la eficacia operativa de los controles durante un periodo."],
+["🚫","Dictamen","No se hace referencia al trabajo del auditor de la org. de servicios, salvo que se modifique la opinión y sea relevante."]]},
+{n:"450",t:"Evaluación de incorrecciones identificadas",o:"Acumular, comunicar y evaluar",b:[
+["➕","Acumular","Acumular incorrecciones identificadas, salvo las claramente insignificantes."],
+["📣","Comunicar","Informar oportunamente a la dirección de todas las incorrecciones y solicitar su corrección."],
+["🔄","Reevaluar","Reevaluar la importancia relativa y si la estrategia y el plan global siguen siendo adecuados."],
+["⚖️","No corregidas","Evaluar su efecto individual y agregado, considerando tamaño, naturaleza y circunstancias."],
+["✍️","Manifestaciones","Obtener representación escrita de que la dirección y los responsables creen que los efectos no corregidos son inmateriales."]]},
+{n:"600",t:"Auditorías de estados financieros de grupos",o:"Incluye el trabajo de auditores de componentes",b:[
+["👨‍⚖️","Responsabilidad","El socio del encargo del grupo es responsable de la dirección, supervisión y ejecución, y de la opinión."],
+["🧩","Componentes","Entender el grupo y sus componentes; identificar componentes significativos y su importancia relativa."],
+["🤝","Auditor del componente","Evaluar competencia, independencia y supervisión; comprender si cumple los requerimientos éticos."],
+["📊","Materialidad","Establecer importancia relativa para el grupo y para cada componente, y el umbral de incorrecciones claramente insignificantes."],
+["🗣️","Comunicación","Comunicación clara en ambos sentidos con auditores de componentes; no se refiere a ellos en el dictamen."]]},
+{n:"610",t:"Utilización del trabajo de auditores internos",o:"Responsabilidad final: auditor externo",b:[
+["🎓","Evaluar","Determinar si se puede utilizar: objetividad, competencia y enfoque sistemático y disciplinado."],
+["🗂️","Planificar","Decidir el alcance y el efecto en la naturaleza, momento y extensión de los procedimientos."],
+["🔗","Dos formas","Usar el trabajo de la auditoría interna o recibir su asistencia directa (bajo supervisión y revisión)."],
+["⛔","Límites","No se usa para áreas de juicio significativo ni riesgos significativos si afecta la objetividad."],
+["🛡️","Responsabilidad","No se reduce la responsabilidad del auditor; no se hace referencia en el dictamen."]]},
+{n:"620",t:"Utilización del trabajo de un experto del auditor",o:"Experto interno o externo",b:[
+["🧪","Necesidad","Determinar si se requiere un experto en un campo distinto de contabilidad o auditoría."],
+["🏅","Evaluar","Competencia, capacidad y objetividad del experto."],
+["📑","Acuerdo","Acordar con el experto naturaleza, alcance, objetivos, roles, comunicación y confidencialidad."],
+["✅","Trabajo","Evaluar la adecuación de su trabajo: hallazgos, hipótesis, métodos y datos utilizados."],
+["📣","Dictamen","No se refiere al experto, salvo que la opinión sea modificada y la referencia sea relevante."]]},
+{n:"700",t:"Formación de la opinión e informe",o:"Informe del auditor independiente",b:[
+["🧭","Formar la opinión","Concluir si se obtuvo seguridad razonable de que los estados financieros están libres de incorrecciones materiales."],
+["📐","Marco","Evaluar si se presentan fielmente (o expresan imagen fiel) conforme al marco de información financiera aplicable."],
+["🏷️","Estructura","Título, destinatario, Opinión, Fundamento de la opinión, Responsabilidades de la dirección y del auditor."],
+["✅","Opinión sin salvedades","Se emite si los estados financieros están preparados en todos los aspectos materiales conforme al marco."],
+["🖋️","Firma y fecha","Nombre del socio o firma, dirección del auditor y fecha no anterior a la obtención de evidencia suficiente."]]},
+{n:"705",t:"Opinión modificada en el informe",o:"Tres tipos de opinión modificada",b:[
+["❓","Cuándo","Cuando hay incorrección material o imposibilidad de obtener evidencia suficiente y adecuada."],
+["🟡","Con salvedades","Efectos materiales pero no generalizados; o limitación de alcance no generalizada."],
+["🔴","Desfavorable (adversa)","Incorrecciones materiales y generalizadas en los estados financieros."],
+["⚫","Denegación","Imposibilidad de obtener evidencia con posibles efectos materiales y generalizados."],
+["📝","Fundamento","Sección «Fundamento de la opinión con salvedades / desfavorable / denegación» explicando el motivo y cuantificando."]]},
+{n:"701",t:"Cuestiones clave de la auditoría (CCA)",o:"Obligatoria para entidades cotizadas",b:[
+["📈","Concepto","Cuestiones de mayor significatividad en la auditoría del periodo actual, a juicio profesional del auditor."],
+["🔎","Determinación","Se eligen entre las comunicadas a los responsables del gobierno, considerando riesgos significativos y juicio elevado."],
+["📄","Descripción","Explicar por qué se consideró clave y cómo se abordó en la auditoría."],
+["⚠️","No sustituyen","No reemplazan una opinión modificada ni una incertidumbre sobre empresa en funcionamiento."],
+["🚧","Excepciones","No se comunica si lo prohíbe la ley o si las consecuencias adversas superan el interés público (casos extremadamente raros)."]]},
+{n:"706",t:"Párrafos de énfasis y otras cuestiones",o:"No modifican la opinión",b:[
+["⭐","Párrafo de énfasis","Se refiere a una cuestión ya presentada o revelada, fundamental para la comprensión de los estados financieros."],
+["💬","Otras cuestiones","Cuestión no presentada ni revelada, relevante para comprender la auditoría, las responsabilidades del auditor o el informe."],
+["📍","Ubicación","Sección separada, con título «Énfasis en un asunto» u «Otras cuestiones», después de la opinión."],
+["🚫","Límite","No sustituye una opinión modificada ni la revelación que debe hacer la dirección."],
+["🤝","Con gobierno","Comunicar a los responsables del gobierno la intención de incluir el párrafo y su redacción."]]},
+{n:"710",t:"Información comparativa",o:"Cifras correspondientes y EEFF comparativos",b:[
+["📅","Cifras correspondientes","Datos del periodo anterior parte integral de los estados del periodo actual; la opinión se refiere solo al periodo actual."],
+["📚","EEFF comparativos","Estados del periodo anterior se presentan para comparación; la opinión se refiere a cada periodo presentado."],
+["🔍","Procedimientos","Verificar que la información comparativa concuerda con los importes y revelaciones del periodo anterior y está clasificada apropiadamente."],
+["⚠️","Incorrección anterior","Si se detecta una incorrección material en el periodo anterior, se evalúa y puede requerir modificar la opinión."],
+["🔁","Otro auditor","Si el periodo anterior fue auditado por otro auditor o no auditado, se agregan párrafos específicos en el informe."]]},
+{n:"720",t:"Responsabilidades respecto de otra información",o:"Informe anual y documentos relacionados",b:[
+["📖","Alcance","Información financiera y no financiera incluida en el informe anual, distinta de los estados financieros y del informe del auditor."],
+["👓","Leer y considerar","Leer la otra información y considerar si es materialmente inconsistente con los estados financieros o con el conocimiento del auditor."],
+["⚠️","Incorrección material","Si hay incorrección material, discutir con la dirección, solicitar corrección y, si no se corrige, tomar acciones apropiadas."],
+["📝","Informe","Incluir sección «Otra información» con descripción, conclusión y responsabilidades."],
+["🚨","Acciones","Comunicar a los responsables del gobierno y, si persiste, considerar efectos en el dictamen o renunciar si la ley lo permite."]]}
+];
+var X={"260":["💡","Para recordar","Es una comunicación en dos sentidos: el auditor informa, pero también escucha a los responsables del gobierno sobre riesgos y asuntos que ellos conocen. Si la comunicación no es adecuada, el auditor evalúa el efecto en los riesgos de incorrección material y toma acciones apropiadas."],"265":["💡","Para recordar","Una deficiencia puede existir aunque no haya incorrecciones. La significatividad depende de la probabilidad de que cause una incorrección y de su magnitud potencial. Los controles compensatorios se consideran al evaluar."],"402":["💡","Para recordar","Subservicio: si la organización de servicios usa otra, el informe puede presentarse con método inclusivo o carve-out. El auditor usuario no puede asumir que el informe Tipo 2 prueba controles de todo el año si cubre un periodo menor."],"450":["💡","Para recordar","Si la dirección se niega a corregir, el auditor entiende las razones y las considera al evaluar si los estados financieros están libres de incorrección material. Las incorrecciones pueden ser de hecho, de juicio o proyectadas."],"600":["💡","Para recordar","Aplica incluso si el auditor del grupo no usa auditores de componentes. Los riesgos de incorrección material se evalúan a nivel del grupo y el trabajo sobre componentes significativos es obligatorio, ya sea auditoría completa o procedimientos específicos."],"610":["💡","Para recordar","Los auditores internos no son independientes de la entidad como el auditor externo, por eso se evalúa cuidadosamente su objetividad. Se revisa una muestra de su trabajo para comprobar que las conclusiones son adecuadas."],"620":["💡","Para recordar","Se distingue experto interno (parte de la firma) de externo (ajeno a ella). El auditor debe comprender el campo de experiencia del experto lo suficiente para evaluar sus hallazgos, ya que la responsabilidad de la opinión sigue siendo suya."],"700":["💡","Para recordar","Orden de secciones: Opinión va primero y luego el Fundamento. Se incluye la sección de empresa en funcionamiento cuando corresponde. Las responsabilidades del auditor pueden ir en el cuerpo del informe, en un anexo o por referencia a un sitio web de la autoridad."],"705":["💡","Para recordar","Clave: naturaleza del asunto (incorrección o limitación) y generalización de sus efectos. Si hay limitación de alcance impuesta por la dirección y se requiere denegar, se comunica antes de emitir el informe. Se modifica el párrafo de Opinión y el de Fundamento."],"701":["💡","Para recordar","Se pueden comunicar CCA en otras entidades de forma voluntaria. Si no hay cuestiones clave, se declara. Debe incluirse una introducción en una sección titulada «Cuestiones clave de la auditoría» y se comunican también en el informe a los responsables del gobierno."],"706":["💡","Para recordar","Un párrafo de énfasis no se usa para resaltar algo que corresponde a una opinión modificada ni sustituye las CCA. Si la dirección no revela adecuadamente el asunto, se aplica la NIA 705, no la 706."],"710":["💡","Para recordar","Con cifras correspondientes no se hace referencia a ellas en la opinión. Con estados comparativos, si la opinión del periodo anterior difiere de la emitida antes, se explican las razones en un párrafo de otras cuestiones."],"720":["💡","Para recordar","El auditor actúa antes de la fecha del informe cuando obtiene la otra información antes. Si la obtiene después, se requiere análisis adicional. La sección «Otra información» es obligatoria en entidades cotizadas y para otra información obtenida antes de la fecha del informe."]};
+D.forEach(function(d){if(X[d.n])d.b.push(X[d.n])});
+var cur=0,done={},sel=-1;
+function $(i){return document.getElementById(i)}
+function tabs(){$("tabs").innerHTML=D.map(function(d,i){return '<button class="tab'+(i==cur?' on':'')+(done[i]?' done':'')+'" data-i="'+i+'">NIA '+d.n+'</button>'}).join("");
+ var k=Object.keys(done).length;$("pr").style.width=(k/D.length*100)+"%";$("ok").textContent=done[cur]?"Repasada ✓":"Marcar repasada ✓"}
+function draw(){
+ var d=D[cur],n=d.b.length,h='',l='';
+ d.b.forEach(function(x,i){
+  var a=(-90+i*360/n)*Math.PI/180,X=50+37*Math.cos(a),Y=50+36*Math.sin(a),c=COL[i%5];
+  l+='<line x1="50" y1="50" x2="'+X+'" y2="'+Y+'"/>';
+  h+='<button class="n" data-k="'+i+'" style="left:'+X+'%;top:'+Y+'%;--c:'+c+';animation-delay:'+i*90+'ms"><span>'+x[0]+'</span>'+x[1]+'</button>'});
+ $("map").innerHTML='<svg viewBox="0 0 100 100" preserveAspectRatio="none">'+l+'</svg><div class="c"><b>NIA '+d.n+'</b><small>'+d.o+'</small></div>'+h;
+ $("det").innerHTML='<h3>NIA '+d.n+' · '+d.t+'</h3>Toca un nodo del mapa para ver el punto clave.';
+ tabs()}
+function go(i){cur=(i+D.length)%D.length;draw()}
+$("tabs").onclick=function(e){var t=e.target.closest(".tab");if(t)go(+t.dataset.i)};
+$("map").onclick=function(e){var t=e.target.closest(".n");if(!t)return;
+ var k=+t.dataset.k,x=D[cur].b[k];
+ [].forEach.call(document.querySelectorAll(".n"),function(n){n.classList.remove("on")});t.classList.add("on");
+ var el=$("det");el.style.borderColor=COL[k%5];el.innerHTML='<h3>'+x[0]+' '+x[1]+'</h3>'+x[2]};
+$("prev").onclick=function(){go(cur-1)};
+$("next").onclick=function(){go(cur+1)};
+$("ok").onclick=function(){done[cur]=!done[cur];tabs()};
+$("go0").onclick=function(){$("cov").style.display="none";$("main").style.display="block";window.scrollTo(0,0)};
+draw();
+</script>
+</body>
+</html>
